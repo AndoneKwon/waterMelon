@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +61,17 @@ public class Artist extends BaseTimeEntity {
         this.deleted_at = deleted_at;
     }
 
+    // 관계 연결
+    public void addRelation(ArtistAlbum artistAlbum) {
+        this.artistAlbums = new ArrayList<>();
+        this.artistAlbums.add(artistAlbum);
+    }
+    // 관계 해제
+    public void removeRelation(ArtistAlbum artistAlbum) {
+        this.artistAlbums = new ArrayList<>();
+        this.artistAlbums.remove(artistAlbum);
+    }
+
     /**
      * 수정 기능
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
@@ -90,5 +102,4 @@ public class Artist extends BaseTimeEntity {
     public void delete(Date now) {
         this.deleted_at = now;
     }
-
 }

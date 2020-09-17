@@ -1,6 +1,7 @@
 package com.watermelon.controller;
 
 import com.watermelon.domain.album.Album;
+import com.watermelon.dto.album.AlbumResponseDto;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
 import com.watermelon.service.AlbumService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,13 @@ public class AlbumController {
 
     // 앨범 개별 조회
     @GetMapping("/v1/albums/{id}")
-    public Optional<Album> read(@PathVariable Long id) {
+    public AlbumResponseDto read(@PathVariable Long id) {
         return albumService.read(id);
     }
 
     // 앨범 목록 조회
     @GetMapping("/v1/albums")
-    public List<Album> list() {
+    public List<AlbumResponseDto> list() {
         return albumService.list();
     }
 

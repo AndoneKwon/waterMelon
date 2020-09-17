@@ -5,8 +5,12 @@ import lombok.Getter;
 
 import java.util.Date;
 
+/**
+ * 관계 정보를 제외한 순수 정보를 담은 Dto
+ */
+
 @Getter
-public class AlbumResponseDto {
+public class AlbumOnlyResponseDto {
 
     private Long id;
     private String title;
@@ -17,7 +21,8 @@ public class AlbumResponseDto {
     private String information;
     private Date deleted_at;
 
-    public AlbumResponseDto(Album entity) {
+    public AlbumOnlyResponseDto(Album entity) {
+        this.id = entity.getId();
         this.title = entity.getTitle();
         this.type = entity.getType();
         this.publish_date = entity.getPublish_date();
