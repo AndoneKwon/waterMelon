@@ -1,4 +1,6 @@
 package com.watermelon.domain.artist_album;
 
-public interface ArtistAlbumRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ArtistAlbumRepository extends JpaRepository<ArtistAlbum, Long> {
 }

@@ -1,5 +1,9 @@
 package com.watermelon.domain.album;
 
+import com.watermelon.domain.artist.Artist;
+import com.watermelon.domain.artist.ArtistRepository;
+import com.watermelon.domain.artist_album.ArtistAlbum;
+import com.watermelon.domain.artist_album.ArtistAlbumRepository;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +29,12 @@ public class AlbumRepositoryTest {
     @Autowired
     private AlbumRepository albumRepository;
 
+    @Autowired
+    private ArtistRepository artistRepository;
+
+    @Autowired
+    private ArtistAlbumRepository artistAlbumRepository;
+
     @After
     public void cleanup() {
         albumRepository.deleteAll();
@@ -44,9 +54,18 @@ public class AlbumRepositoryTest {
     @Test
     public void album_read() {
         // given
+        // 아티스트와 앨범 객체를 생성하고 매핑합니다
         Album album = albumRepository.save(Album.builder()
                 .title("title")
-                .information("first album")
+                .build()
+        );
+        Artist artist = artistRepository.save(Artist.builder()
+                .name("artist")
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album)
+                .artist(artist)
                 .build()
         );
 
@@ -59,24 +78,42 @@ public class AlbumRepositoryTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println(responseEntity.getBody());
+        artistAlbumRepository.deleteAll();
+        artistRepository.deleteAll();
     }
 
     @Test
     public void album_list() {
 
         // given
-        albumRepository.save(Album.builder()
-                .title("title1")
-                .information("first album")
+        Album album1 = albumRepository.save(Album.builder()
+                .title("album1")
                 .build()
         );
-        albumRepository.save(Album.builder()
-                .title("title2")
-                .information("second album")
+        Album album2 = albumRepository.save(Album.builder()
+                .title("album2")
+                .build()
+        );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album1)
+                .artist(artist1)
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album2)
+                .artist(artist2)
                 .build()
         );
 
-        String url = "http://localhost:" + port + "/v1/albums/";
+        String url = "http://localhost:" + port + "/v1/albums";
 
         // when
         ResponseEntity<Object> responseEntity = restTemplate.getForEntity(url, Object.class);
@@ -84,6 +121,8 @@ public class AlbumRepositoryTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println(responseEntity.getBody());
+        artistAlbumRepository.deleteAll();
+        artistRepository.deleteAll();
     }
 
     @Test
