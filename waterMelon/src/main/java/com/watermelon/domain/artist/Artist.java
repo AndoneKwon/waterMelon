@@ -45,9 +45,17 @@ public class Artist extends BaseTimeEntity {
     @OneToMany(mappedBy = "artist")
     private List<ArtistAlbum> artistAlbums;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id")
+    private Artist group;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    private List<Artist> members;
+
     @Builder
     public Artist(String name, String information, String fan_club, String activity, String genre,
-                  String nationality, String agency, Boolean is_concoction, Boolean is_group, Date debut, Date deleted_at) {
+                  String nationality, String agency, Boolean is_concoction,
+                  Boolean is_group, Date debut, Date deleted_at, Artist group) {
         this.name = name;
         this.information = information;
         this.fan_club = fan_club;
@@ -59,6 +67,7 @@ public class Artist extends BaseTimeEntity {
         this.is_group = is_group;
         this.debut = debut;
         this.deleted_at = deleted_at;
+        this.group = group;
     }
 
     // 관계 연결

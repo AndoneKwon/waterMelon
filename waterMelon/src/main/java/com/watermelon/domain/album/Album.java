@@ -92,4 +92,5 @@ public class Album extends BaseTimeEntity {
     public void delete(Date now) {
         this.deleted_at = now;
     }
+
 }
