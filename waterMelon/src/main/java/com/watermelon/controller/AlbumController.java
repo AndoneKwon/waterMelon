@@ -1,14 +1,13 @@
 package com.watermelon.controller;
 
 import com.watermelon.domain.album.Album;
-import com.watermelon.dto.album.AlbumResponseDto;
+import com.watermelon.dto.album.AlbumReadResponseDto;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
 import com.watermelon.service.AlbumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,20 +17,20 @@ public class AlbumController {
 
     // 앨범 개별 조회
     @GetMapping("/v1/albums/{id}")
-    public AlbumResponseDto read(@PathVariable Long id) {
+    public AlbumReadResponseDto read(@PathVariable Long id) {
         return albumService.read(id);
     }
 
     // 앨범 목록 조회
     @GetMapping("/v1/albums")
-    public List<AlbumResponseDto> list() {
+    public List<AlbumReadResponseDto> list() {
         return albumService.list();
     }
 
     // 앨범 수정
     @PatchMapping("/v1/albums/{id}")
-    public Album update(@PathVariable Long id, @RequestBody AlbumUpdateRequestDto albumUpdateRequestDto) {
-        return albumService.update(id, albumUpdateRequestDto);
+    public AlbumReadResponseDto update(@PathVariable Long id, @RequestBody AlbumUpdateRequestDto requestDto) {
+        return albumService.update(id, requestDto);
     }
 
     // 앨범 삭제
