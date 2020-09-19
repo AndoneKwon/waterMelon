@@ -20,6 +20,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -134,12 +137,28 @@ public class AlbumRepositoryTest {
                 .information("first album")
                 .build()
         );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album)
+                .artist(artist1)
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
 
         Long updatedId = album.getId();
         String expectedTitle = "title update";
+        List<Long> artist_ids = new ArrayList<>();
+        artist_ids.add(artist2.getId());
 
         AlbumUpdateRequestDto requestDto = AlbumUpdateRequestDto.builder()
                 .title(expectedTitle)
+                .artist_id_list(artist_ids)
                 .build();
 
         HttpEntity<AlbumUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
@@ -157,6 +176,8 @@ public class AlbumRepositoryTest {
         Album savedAlbum = albumRepository.findById(updatedId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 앨범"));
         assertThat(savedAlbum.getTitle()).isEqualTo(expectedTitle);
+        artistAlbumRepository.deleteAll();
+        albumRepository.deleteAll();
     }
 
     @Test

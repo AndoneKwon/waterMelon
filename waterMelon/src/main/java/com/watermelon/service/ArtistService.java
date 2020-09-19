@@ -1,49 +1,89 @@
 package com.watermelon.service;
 
 import com.watermelon.domain.album.Album;
+import com.watermelon.domain.album.AlbumRepository;
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist.ArtistRepository;
-import com.watermelon.domain.artist_album.ArtistAlbum;
-import com.watermelon.dto.artist.ArtistResponseDto;
+import com.watermelon.dto.artist.ArtistOnlyResponseDto;
+import com.watermelon.dto.artist.ArtistReadResponseDto;
+import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ArtistService {
 
     private final ArtistRepository artistRepository;
-    private List<ArtistResponseDto> responseDtos;
+    private final AlbumRepository albumRepository;
+    private List<ArtistReadResponseDto> responseDtos;
 
     // 아티스트 개별 조회
     @Transactional
-    public ArtistResponseDto read(Long id) {
+    public ArtistReadResponseDto read(Long id) {
         Artist artist = artistRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
-        return new ArtistResponseDto(artist);
+        return new ArtistReadResponseDto(artist);
     }
 
     // 아티스트 목록 조회
     @Transactional
-    public List<ArtistResponseDto> list() {
+    public List<ArtistReadResponseDto> list(String keyword) {
+        // 키워드 기반의 아티스트 이름으로 찾기
+        if (keyword != null) {
+            List<Artist> artists = artistRepository.findByNameContaining(keyword);
+            responseDtos = new ArrayList<>();
+            for (Artist artist : artists) {
+                responseDtos.add(new ArtistReadResponseDto(artist));
+            }
+
+            return responseDtos;
+        }
         List<Artist> artists = artistRepository.findAll();
 
         responseDtos = new ArrayList<>();
         for (Artist artist : artists) {
-            responseDtos.add(new ArtistResponseDto(artist));
+            responseDtos.add(new ArtistReadResponseDto(artist));
         }
 
         return responseDtos;
     }
 
     // 아티스트 수정
+    @Transactional
+    public ArtistReadResponseDto update(Long id, ArtistUpdateRequestDto requestDto) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
+        List<Album> albums = new ArrayList<>();
+        Artist group = new Artist();
+
+        if (requestDto.getAlbum_id_list() != null) {
+            albums = albumRepository.findAllById(requestDto.getAlbum_id_list());
+        }
+        if (requestDto.getArtist_id() != null) {
+            group = artistRepository.findById(requestDto.getArtist_id())
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
+        }
+
+        artist.update(requestDto, albums, group);
+
+        return new ArtistReadResponseDto(artist);
+    }
 
     // 아티스트 삭제
+    @Transactional
+    public String delete(Long id) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
+
+        Date now = new Date();
+        artist.delete(now);
+
+        return "삭제되었습니다.";
+    }
 }

@@ -3,6 +3,7 @@ package com.watermelon.domain.artist;
 import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.album.Album;
 import com.watermelon.domain.artist_album.ArtistAlbum;
+import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -86,26 +87,52 @@ public class Artist extends BaseTimeEntity {
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
      * 필드만 수정 처리
      */
-//    public void update(ArtistUpdateRequestDto requestDto) {
-//        if (requestDto.getTitle() != null) {
-//            this.title = requestDto.getTitle();
-//        }
-//        if (requestDto.getType() != null) {
-//            this.type = requestDto.getType();
-//        }
-//        if (requestDto.getPublish_date() != null) {
-//            this.publish_date = requestDto.getPublish_date();
-//        }
-//        if (requestDto.getPublisher() != null) {
-//            this.publisher = requestDto.getPublisher();
-//        }
-//        if (requestDto.getAgency() != null) {
-//            this.agency = requestDto.getAgency();
-//        }
-//        if (requestDto.getInformation() != null) {
-//            this.information = requestDto.getInformation();
-//        }
-//    }
+    public void update(ArtistUpdateRequestDto requestDto, List<Album> albums, Artist group) {
+        if (requestDto.getName() != null) {
+            this.name = requestDto.getName();
+        }
+        if (requestDto.getInformation() != null) {
+            this.information = requestDto.getInformation();
+        }
+        if (requestDto.getFan_club() != null) {
+            this.fan_club = requestDto.getFan_club();
+        }
+        if (requestDto.getActivity() != null) {
+            this.activity = requestDto.getActivity();
+        }
+        if (requestDto.getGenre() != null) {
+            this.genre = requestDto.getGenre();
+        }
+        if (requestDto.getNationality() != null) {
+            this.nationality = requestDto.getNationality();
+        }
+        if (requestDto.getAgency() != null) {
+            this.agency = requestDto.getAgency();
+        }
+        if (requestDto.getIs_group() != null) {
+            this.is_group = requestDto.getIs_group();
+        }
+        if (requestDto.getIs_concoction() != null) {
+            this.is_concoction = requestDto.getIs_concoction();
+        }
+        if (requestDto.getDebut() != null) {
+            this.debut = requestDto.getDebut();
+        }
+        // 앨범 관계를 리셋하고 다시 매핑합니다
+        if (requestDto.getAlbum_id_list() != null) {
+            this.artistAlbums.clear();
+            for (Album album : albums) {
+                ArtistAlbum artistAlbum = ArtistAlbum.builder()
+                        .album(album)
+                        .build();
+                this.artistAlbums.add(artistAlbum);
+            }
+        }
+        // 아티스트는 자신의 아티스트 그룹을 설정할 수 있습니다
+        if (requestDto.getArtist_id() != null) {
+            this.group = group;
+        }
+    }
 
     // 삭제 기능
     public void delete(Date now) {

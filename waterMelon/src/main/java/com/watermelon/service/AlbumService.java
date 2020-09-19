@@ -3,9 +3,9 @@ package com.watermelon.service;
 import com.watermelon.domain.album.Album;
 import com.watermelon.domain.album.AlbumRepository;
 import com.watermelon.domain.artist.Artist;
-import com.watermelon.dto.album.AlbumResponseDto;
+import com.watermelon.domain.artist.ArtistRepository;
+import com.watermelon.dto.album.AlbumReadResponseDto;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
-import com.watermelon.dto.artist.ArtistResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,24 +19,25 @@ import java.util.List;
 public class AlbumService {
 
     private final AlbumRepository albumRepository;
-    private List<AlbumResponseDto> responseDtos;
+    private final ArtistRepository artistRepository;
+    private List<AlbumReadResponseDto> responseDtos;
 
     // 앨범 개별 조회
     @Transactional
-    public AlbumResponseDto read(Long id) {
+    public AlbumReadResponseDto read(Long id) {
         Album album = albumRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
-        return new AlbumResponseDto(album);
+        return new AlbumReadResponseDto(album);
     }
 
     @Transactional
     // 앨범 목록 조회
-    public List<AlbumResponseDto> list() {
+    public List<AlbumReadResponseDto> list() {
         List<Album> albums = albumRepository.findAll();
 
         responseDtos = new ArrayList<>();
         for (Album album : albums) {
-            responseDtos.add(new AlbumResponseDto(album));
+            responseDtos.add(new AlbumReadResponseDto(album));
         }
 
         return responseDtos;
@@ -44,13 +45,19 @@ public class AlbumService {
 
     // 앨범 수정
     @Transactional
-    public Album update(Long id, AlbumUpdateRequestDto albumUpdateRequestDto) {
+    public AlbumReadResponseDto update(Long id, AlbumUpdateRequestDto requestDto) {
         Album album = albumRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("수정할 앨범이 존재하지 않습니다."));
 
-        album.update(albumUpdateRequestDto);
+        List<Artist> artists = new ArrayList<>();
 
-        return album;
+        if (requestDto.getArtist_id_list() != null) {
+            artists = artistRepository.findAllById(requestDto.getArtist_id_list());
+        }
+
+        album.update(requestDto, artists);
+
+        return new AlbumReadResponseDto(album);
     }
 
     // 앨범 삭제

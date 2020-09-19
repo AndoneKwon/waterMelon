@@ -68,7 +68,7 @@ public class Album extends BaseTimeEntity {
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
      * 필드만 수정 처리
      */
-    public void update(AlbumUpdateRequestDto requestDto) {
+    public void update(AlbumUpdateRequestDto requestDto, List<Artist> artists) {
         if (requestDto.getTitle() != null) {
             this.title = requestDto.getTitle();
         }
@@ -86,6 +86,15 @@ public class Album extends BaseTimeEntity {
         }
         if (requestDto.getInformation() != null) {
             this.information = requestDto.getInformation();
+        }
+        if (requestDto.getArtist_id_list() != null) {
+            this.artistAlbums.clear();
+            for (Artist artist : artists) {
+                ArtistAlbum artistAlbum = ArtistAlbum.builder()
+                        .artist(artist)
+                        .build();
+                this.artistAlbums.add(artistAlbum);
+            }
         }
     }
     // 삭제 기능
