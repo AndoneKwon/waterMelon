@@ -27,6 +27,7 @@ public class Artist extends BaseTimeEntity {
 
     @Column(columnDefinition = "TEXT")
     private String information;
+    @Column(columnDefinition = "TEXT")
     private String fan_club;
 
     @Column(length = 30)
@@ -35,6 +36,7 @@ public class Artist extends BaseTimeEntity {
 
     @Column(length = 100)
     private String nationality;
+    @Column(length = 100)
     private String agency;
 
     private Boolean is_group;
@@ -42,6 +44,14 @@ public class Artist extends BaseTimeEntity {
 
     private Date debut;
     private Date deleted_at;
+
+    @Column(length = 10)
+    private String gender;
+    @Column(columnDefinition = "TEXT")
+    private String type;
+    @Column(length = 100)
+    private String debut_music;
+
 
     @OneToMany(mappedBy = "artist")
     private List<ArtistAlbum> artistAlbums;
