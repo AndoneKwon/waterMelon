@@ -4,7 +4,6 @@ import com.watermelon.domain.album.Album;
 import com.watermelon.domain.album.AlbumRepository;
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist.ArtistRepository;
-import com.watermelon.dto.artist.ArtistOnlyResponseDto;
 import com.watermelon.dto.artist.ArtistReadResponseDto;
 import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import lombok.RequiredArgsConstructor;

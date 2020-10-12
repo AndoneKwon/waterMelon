@@ -13,31 +13,37 @@ public class ArtistUpdateRequestDto {
 
     private String name;
     private String information;
-    private String fan_club;
+    private String fanClub;
     private String activity;
     private String genre;
     private String nationality;
     private String agency;
-    private Boolean is_group;
-    private Boolean is_concoction;
+    private String gender;
+    private String type;
+    private String debutMusic;
+    private Boolean isGroup;
+    private Boolean isConcoction;
     private Date debut;
 
     private List<Long> album_id_list;
     private Long artist_id;
 
     @Builder
-    public ArtistUpdateRequestDto(String name, String information, String fan_club, String activity, String genre,
-                  String nationality, String agency, Boolean is_concoction,
-                  Boolean is_group, Date debut, List<Long> album_id_list, Long artist_id) {
+    public ArtistUpdateRequestDto(String name, String information, String fanClub, String activity, String genre,
+                  String nationality, String agency, Boolean isConcoction, String gender, String type, String debutMusic,
+                  Boolean isGroup, Date debut, List<Long> album_id_list, Long artist_id) {
         this.name = name;
         this.information = information;
-        this.fan_club = fan_club;
+        this.fanClub = fanClub;
         this.activity = activity;
         this.genre = genre;
         this.nationality = nationality;
         this.agency = agency;
-        this.is_concoction = is_concoction;
-        this.is_group = is_group;
+        this.isConcoction = isConcoction;
+        this.isGroup = isGroup;
+        this.gender = gender;
+        this.type = type;
+        this.debutMusic = debutMusic;
         this.debut = debut;
         this.album_id_list = album_id_list;
         this.artist_id = artist_id;

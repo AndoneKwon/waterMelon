@@ -14,7 +14,7 @@ public class AlbumUpdateRequestDto {
 
     private String title;
     private String type;
-    private Date publish_date;
+    private Date publishDate;
     private String publisher;
     private String agency;
     private String information;
@@ -22,11 +22,11 @@ public class AlbumUpdateRequestDto {
     private List<Long> artist_id_list;
 
     @Builder
-    public AlbumUpdateRequestDto(String title, String type, Date publish_date,
+    public AlbumUpdateRequestDto(String title, String type, Date publishDate,
                                  String publisher, String agency, String information, List<Long> artist_id_list) {
         this.title = title;
         this.type = type;
-        this.publish_date = publish_date;
+        this.publishDate = publishDate;
         this.publisher = publisher;
         this.agency = agency;
         this.information = information;

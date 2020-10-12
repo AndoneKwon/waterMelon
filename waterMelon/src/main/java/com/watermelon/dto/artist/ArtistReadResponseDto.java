@@ -19,53 +19,59 @@ public class ArtistReadResponseDto {
     private Long id;
     private String name;
     private String information;
-    private String fan_club;
+    private String fanClub;
     private String activity;
     private String genre;
     private String nationality;
     private String agency;
-    private Boolean is_group;
-    private Boolean is_concoction;
+    private String gender;
+    private String type;
+    private String debutMusic;
+    private Boolean isGroup;
+    private Boolean isConcoction;
     private Date debut;
-    private Date deleted_at;
+    private Date deletedAt;
 
     // 앨범 정보만을 추출하기 위한 Dto
     private List<ArtistToAlbumResponseDto> albums;
 
-    private List<ArtistOnlyResponseDto> members;
-    private ArtistOnlyResponseDto group;
+    private List<ArtistPureResponseDto> members;
+    private ArtistPureResponseDto group;
 
     public ArtistReadResponseDto(Artist entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.information = entity.getInformation();
-        this.fan_club = entity.getFan_club();
+        this.fanClub = entity.getFanClub();
         this.activity = entity.getActivity();
         this.genre = entity.getGenre();
         this.nationality = entity.getNationality();
         this.agency = entity.getAgency();
-        this.is_concoction = entity.getIs_concoction();
-        this.is_group = entity.getIs_group();
+        this.type = entity.getType();
+        this.gender = entity.getGender();
+        this.debutMusic = entity.getDebutMusic();
+        this.isConcoction = entity.getIsConcoction();
+        this.isGroup = entity.getIsGroup();
         this.debut = entity.getDebut();
-        this.deleted_at = entity.getDeleted_at();
+        this.deletedAt = entity.getDeletedAt();
 
-        if (entity.getGroup() != null && entity.getGroup().getDeleted_at() == null) {
-            this.group = new ArtistOnlyResponseDto(entity.getGroup());
+        if (entity.getGroup() != null && entity.getGroup().getDeletedAt() == null) {
+            this.group = new ArtistPureResponseDto(entity.getGroup());
         }
 
         // 여러 앨범 리스트를 순회하면서 앨범 정보를 필터링합니다
         this.albums = new ArrayList<>();
         for (ArtistAlbum artistAlbum : entity.getArtistAlbums()) {
             ArtistToAlbumResponseDto responseDto = new ArtistToAlbumResponseDto(artistAlbum);
-            if (responseDto.getAlbum().getDeleted_at() == null){
+            if (responseDto.getAlbum().getDeletedAt() == null){
                 this.albums.add(new ArtistToAlbumResponseDto(artistAlbum));
             }
         }
 
         this.members = new ArrayList<>();
         for (Artist member : entity.getMembers()) {
-            ArtistOnlyResponseDto responseDto = new ArtistOnlyResponseDto(member);
-            if (responseDto.getDeleted_at() == null) {
+            ArtistPureResponseDto responseDto = new ArtistPureResponseDto(member);
+            if (responseDto.getDeletedAt() == null) {
                 this.members.add(responseDto);
             }
         }

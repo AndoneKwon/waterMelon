@@ -10,33 +10,39 @@ import java.util.Date;
  */
 
 @Getter
-public class ArtistOnlyResponseDto {
+public class ArtistPureResponseDto {
 
     private Long id;
     private String name;
     private String information;
-    private String fan_club;
+    private String fanClub;
     private String activity;
     private String genre;
     private String nationality;
     private String agency;
-    private Boolean is_group;
-    private Boolean is_concoction;
+    private String gender;
+    private String type;
+    private String debutMusic;
+    private Boolean isGroup;
+    private Boolean isConcoction;
     private Date debut;
-    private Date deleted_at;
+    private Date deletedAt;
 
-    public ArtistOnlyResponseDto(Artist entity) {
+    public ArtistPureResponseDto(Artist entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.information = entity.getInformation();
-        this.fan_club = entity.getFan_club();
+        this.fanClub = entity.getFanClub();
         this.activity = entity.getActivity();
         this.genre = entity.getGenre();
         this.nationality = entity.getNationality();
         this.agency = entity.getAgency();
-        this.is_concoction = entity.getIs_concoction();
-        this.is_group = entity.getIs_group();
+        this.gender = entity.getGender();
+        this.type = entity.getType();
+        this.debutMusic = entity.getDebutMusic();
+        this.isConcoction = entity.getIsConcoction();
+        this.isGroup = entity.getIsGroup();
         this.debut = entity.getDebut();
-        this.deleted_at = entity.getDeleted_at();
+        this.deletedAt = entity.getDeletedAt();
     }
 }

@@ -28,28 +28,35 @@ public class Album extends BaseTimeEntity {
     @Column(length = 20)
     private String type;
 
-    private Date publish_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "publish_date")
+    private Date publishDate;
+
+    @Column(length = 100)
     private String publisher;
+    @Column(length = 100)
     private String agency;
 
     @Column(columnDefinition = "TEXT")
     private String information;
 
-    private Date deleted_at;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @OneToMany(mappedBy = "album")
     private List<ArtistAlbum> artistAlbums;
 
     @Builder
-    public Album(String title, String type, Date publish_date,
-                 String publisher, String agency, String information, Date deleted_at) {
+    public Album(String title, String type, Date publishDate,
+                 String publisher, String agency, String information, Date deletedAt) {
         this.title = title;
         this.type = type;
-        this.publish_date = publish_date;
+        this.publishDate = publishDate;
         this.publisher = publisher;
         this.agency = agency;
         this.information = information;
-        this.deleted_at = deleted_at;
+        this.deletedAt = deletedAt;
     }
 
     // 관계 연결
@@ -75,8 +82,8 @@ public class Album extends BaseTimeEntity {
         if (requestDto.getType() != null) {
             this.type = requestDto.getType();
         }
-        if (requestDto.getPublish_date() != null) {
-            this.publish_date = requestDto.getPublish_date();
+        if (requestDto.getPublishDate() != null) {
+            this.publishDate = requestDto.getPublishDate();
         }
         if (requestDto.getPublisher() != null) {
             this.publisher = requestDto.getPublisher();
@@ -99,7 +106,7 @@ public class Album extends BaseTimeEntity {
     }
     // 삭제 기능
     public void delete(Date now) {
-        this.deleted_at = now;
+        this.deletedAt = now;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.watermelon.dto.artist_album;
 
 import com.watermelon.domain.artist_album.ArtistAlbum;
-import com.watermelon.dto.album.AlbumOnlyResponseDto;
+import com.watermelon.dto.album.AlbumPureResponseDto;
 import lombok.Getter;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Getter;
 @Getter
 public class ArtistToAlbumResponseDto {
 
-    private AlbumOnlyResponseDto album;
+    private AlbumPureResponseDto album;
 
     public ArtistToAlbumResponseDto(ArtistAlbum entity) {
-        this.album = new AlbumOnlyResponseDto(entity.getAlbum());
+        this.album = new AlbumPureResponseDto(entity.getAlbum());
     }
 }

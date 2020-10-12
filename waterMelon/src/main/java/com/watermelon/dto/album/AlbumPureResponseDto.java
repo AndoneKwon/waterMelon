@@ -10,25 +10,30 @@ import java.util.Date;
  */
 
 @Getter
-public class AlbumOnlyResponseDto {
+public class AlbumPureResponseDto {
+
+    /**
+     * 목적
+     * 1. title :
+     */
 
     private Long id;
     private String title;
     private String type;
-    private Date publish_date;
+    private Date publishDate;
     private String publisher;
     private String agency;
     private String information;
-    private Date deleted_at;
+    private Date deletedAt;
 
-    public AlbumOnlyResponseDto(Album entity) {
+    public AlbumPureResponseDto(Album entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.type = entity.getType();
-        this.publish_date = entity.getPublish_date();
+        this.publishDate = entity.getPublishDate();
         this.publisher = entity.getPublisher();
         this.agency = entity.getAgency();
         this.information = entity.getInformation();
-        this.deleted_at = entity.getDeleted_at();
+        this.deletedAt = entity.getDeletedAt();
     }
 }

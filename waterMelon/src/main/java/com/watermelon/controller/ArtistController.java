@@ -1,6 +1,5 @@
 package com.watermelon.controller;
 
-import com.watermelon.dto.artist.ArtistOnlyResponseDto;
 import com.watermelon.dto.artist.ArtistReadResponseDto;
 import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import com.watermelon.service.ArtistService;

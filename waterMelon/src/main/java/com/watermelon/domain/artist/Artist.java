@@ -27,11 +27,12 @@ public class Artist extends BaseTimeEntity {
 
     @Column(columnDefinition = "TEXT")
     private String information;
-    @Column(columnDefinition = "TEXT")
-    private String fan_club;
+    @Column(name = "fan_club", columnDefinition = "TEXT")
+    private String fanClub;
 
     @Column(length = 30)
     private String activity;
+    @Column(length = 30)
     private String genre;
 
     @Column(length = 100)
@@ -39,18 +40,24 @@ public class Artist extends BaseTimeEntity {
     @Column(length = 100)
     private String agency;
 
-    private Boolean is_group;
-    private Boolean is_concoction;
+    @Column(name = "is_group", columnDefinition = "TINYINT")
+    private Boolean isGroup;
+    @Column(name = "is_concoction", columnDefinition = "TINYINT")
+    private Boolean isConcoction;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date debut;
-    private Date deleted_at;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Column(length = 10)
     private String gender;
     @Column(columnDefinition = "TEXT")
     private String type;
-    @Column(length = 100)
-    private String debut_music;
+    @Column(name = "debut_music", length = 100)
+    private String debutMusic;
 
 
     @OneToMany(mappedBy = "artist")
@@ -64,20 +71,24 @@ public class Artist extends BaseTimeEntity {
     private List<Artist> members;
 
     @Builder
-    public Artist(String name, String information, String fan_club, String activity, String genre,
-                  String nationality, String agency, Boolean is_concoction,
-                  Boolean is_group, Date debut, Date deleted_at, Artist group) {
+    public Artist(String name, String information, String fanClub, String activity, String genre,
+                  String nationality, String agency, Boolean isConcoction,
+                  Boolean isGroup, Date debut, String debutMusic, String gender, String type,
+                  Date deletedAt, Artist group) {
         this.name = name;
         this.information = information;
-        this.fan_club = fan_club;
+        this.fanClub = fanClub;
         this.activity = activity;
         this.genre = genre;
         this.nationality = nationality;
         this.agency = agency;
-        this.is_concoction = is_concoction;
-        this.is_group = is_group;
+        this.isConcoction = isConcoction;
+        this.isGroup = isGroup;
         this.debut = debut;
-        this.deleted_at = deleted_at;
+        this.debutMusic = debutMusic;
+        this.gender = gender;
+        this.type = type;
+        this.deletedAt = deletedAt;
         this.group = group;
     }
 
@@ -104,8 +115,8 @@ public class Artist extends BaseTimeEntity {
         if (requestDto.getInformation() != null) {
             this.information = requestDto.getInformation();
         }
-        if (requestDto.getFan_club() != null) {
-            this.fan_club = requestDto.getFan_club();
+        if (requestDto.getFanClub() != null) {
+            this.fanClub = requestDto.getFanClub();
         }
         if (requestDto.getActivity() != null) {
             this.activity = requestDto.getActivity();
@@ -119,11 +130,20 @@ public class Artist extends BaseTimeEntity {
         if (requestDto.getAgency() != null) {
             this.agency = requestDto.getAgency();
         }
-        if (requestDto.getIs_group() != null) {
-            this.is_group = requestDto.getIs_group();
+        if (requestDto.getGender() != null) {
+            this.gender = requestDto.getGender();
         }
-        if (requestDto.getIs_concoction() != null) {
-            this.is_concoction = requestDto.getIs_concoction();
+        if (requestDto.getType() != null) {
+            this.type = requestDto.getType();
+        }
+        if (requestDto.getDebutMusic() != null) {
+            this.debutMusic = requestDto.getDebutMusic();
+        }
+        if (requestDto.getIsGroup() != null) {
+            this.isGroup = requestDto.getIsGroup();
+        }
+        if (requestDto.getIsConcoction() != null) {
+            this.isConcoction = requestDto.getIsConcoction();
         }
         if (requestDto.getDebut() != null) {
             this.debut = requestDto.getDebut();
@@ -146,6 +166,6 @@ public class Artist extends BaseTimeEntity {
 
     // 삭제 기능
     public void delete(Date now) {
-        this.deleted_at = now;
+        this.deletedAt = now;
     }
 }
