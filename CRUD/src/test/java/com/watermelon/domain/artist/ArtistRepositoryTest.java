@@ -259,7 +259,7 @@ public class ArtistRepositoryTest {
         // then
         Artist testArtist = artistRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 아티스트가 존재하지 않습니다."));
-        assertThat(testArtist.getDeleted_at()).isNotNull();
+        assertThat(testArtist.getDeletedAt()).isNotNull();
         System.out.println(testArtist.getName());
     }
 }

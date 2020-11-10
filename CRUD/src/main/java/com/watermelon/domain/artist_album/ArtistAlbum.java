@@ -29,13 +29,15 @@ public class ArtistAlbum extends BaseTimeEntity {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    Date deleted_at;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Builder
-    public ArtistAlbum(Artist artist, Album album, Date deleted_at) {
+    public ArtistAlbum(Artist artist, Album album, Date deletedAt) {
         this.artist = artist;
         this.album = album;
-        this.deleted_at = deleted_at;
+        this.deletedAt = deletedAt;
     }
 
     public void setArtist(Artist artist) {

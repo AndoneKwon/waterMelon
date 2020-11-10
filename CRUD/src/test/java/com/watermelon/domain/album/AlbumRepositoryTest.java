@@ -201,7 +201,7 @@ public class AlbumRepositoryTest {
         // then
         Album testAlbum = albumRepository.findById(deletedId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 앨범이 존재하지 않습니다."));
-        assertThat(testAlbum.getDeleted_at()).isNotNull();
+        assertThat(testAlbum.getDeletedAt()).isNotNull();
         System.out.println(testAlbum.getTitle());
     }
 }

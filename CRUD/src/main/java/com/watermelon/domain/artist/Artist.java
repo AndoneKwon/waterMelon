@@ -3,6 +3,7 @@ package com.watermelon.domain.artist;
 import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.album.Album;
 import com.watermelon.domain.artist_album.ArtistAlbum;
+import com.watermelon.domain.artist_music.ArtistMusic;
 import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,6 +63,9 @@ public class Artist extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "artist")
     private List<ArtistAlbum> artistAlbums;
+
+    @OneToMany(mappedBy = "music")
+    private List<ArtistMusic> artistMusics;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
