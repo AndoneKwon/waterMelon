@@ -64,7 +64,7 @@ public class Artist extends BaseTimeEntity {
     @OneToMany(mappedBy = "artist")
     private List<ArtistAlbum> artistAlbums;
 
-    @OneToMany(mappedBy = "music")
+    @OneToMany(mappedBy = "artist")
     private List<ArtistMusic> artistMusics;
 
     @ManyToOne(fetch = FetchType.LAZY)

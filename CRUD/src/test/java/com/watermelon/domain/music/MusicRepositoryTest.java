@@ -92,6 +92,66 @@ public class MusicRepositoryTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println(responseEntity.getBody());
+    }
 
+    @Test
+    public void music_list() {
+
+        // given
+        Album album = albumRepository.save(Album.builder()
+                .title("album1")
+                .build()
+        );
+        Music music1 = musicRepository.save(Music.builder()
+                .title("music1")
+                .composer("composer")
+                .songwriter("writer")
+                .album(album)
+                .build()
+        );
+        Music music2 = musicRepository.save(Music.builder()
+                .title("music2")
+                .composer("composer")
+                .songwriter("writer")
+                .album(album)
+                .build()
+        );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .music(music1)
+                .artist(artist1)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .music(music1)
+                .artist(artist2)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .music(music2)
+                .artist(artist1)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .music(music2)
+                .artist(artist2)
+                .build()
+        );
+
+        String url = "http://localhost:" + port + "/v1/musics";
+
+        // when
+        ResponseEntity<Object> responseEntity = restTemplate.getForEntity(url, Object.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(responseEntity.getBody());
     }
 }

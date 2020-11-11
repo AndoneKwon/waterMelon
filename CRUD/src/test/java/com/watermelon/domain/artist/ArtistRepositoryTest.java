@@ -42,8 +42,8 @@ public class ArtistRepositoryTest {
 
     @After
     public void cleanup() {
-        artistRepository.deleteAll();
         artistAlbumRepository.deleteAll();
+        artistRepository.deleteAll();
         albumRepository.deleteAll();
     }
 
@@ -133,8 +133,6 @@ public class ArtistRepositoryTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println(responseEntity.getBody());
-        artistAlbumRepository.deleteAll();
-        albumRepository.deleteAll();
     }
 
     @Test

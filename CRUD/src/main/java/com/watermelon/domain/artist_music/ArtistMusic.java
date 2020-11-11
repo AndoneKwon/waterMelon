@@ -1,5 +1,6 @@
 package com.watermelon.domain.artist_music;
 
+import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.music.Music;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-public class ArtistMusic {
+public class ArtistMusic extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
