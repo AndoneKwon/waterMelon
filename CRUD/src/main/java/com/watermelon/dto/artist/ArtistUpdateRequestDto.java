@@ -1,7 +1,5 @@
 package com.watermelon.dto.artist;
 
-import com.watermelon.domain.artist.Artist;
-import com.watermelon.dto.artist_album.ArtistToAlbumResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 

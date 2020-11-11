@@ -40,10 +40,12 @@ public class ArtistRepositoryTest {
     @Autowired
     private ArtistAlbumRepository artistAlbumRepository;
 
-//    @After
-//    public void cleanup() {
-//        artistRepository.deleteAll();
-//    }
+    @After
+    public void cleanup() {
+        artistRepository.deleteAll();
+        artistAlbumRepository.deleteAll();
+        albumRepository.deleteAll();
+    }
 
     @LocalServerPort
     private int port;
@@ -90,9 +92,6 @@ public class ArtistRepositoryTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println(responseEntity.getBody());
-//        artistAlbumRepository.deleteAll();
-//        albumRepository.deleteAll();
-
     }
 
     @Test

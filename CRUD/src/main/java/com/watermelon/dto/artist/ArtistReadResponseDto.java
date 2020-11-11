@@ -2,7 +2,7 @@ package com.watermelon.dto.artist;
 
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist_album.ArtistAlbum;
-import com.watermelon.dto.artist_album.ArtistToAlbumResponseDto;
+import com.watermelon.dto.album.AlbumPureResponseDto;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ArtistReadResponseDto {
     private Date deletedAt;
 
     // 앨범 정보만을 추출하기 위한 Dto
-    private List<ArtistToAlbumResponseDto> albums;
+    private List<AlbumPureResponseDto> albums;
 
     private List<ArtistPureResponseDto> members;
     private ArtistPureResponseDto group;
@@ -62,9 +62,9 @@ public class ArtistReadResponseDto {
         // 여러 앨범 리스트를 순회하면서 앨범 정보를 필터링합니다
         this.albums = new ArrayList<>();
         for (ArtistAlbum artistAlbum : entity.getArtistAlbums()) {
-            ArtistToAlbumResponseDto responseDto = new ArtistToAlbumResponseDto(artistAlbum);
-            if (responseDto.getAlbum().getDeletedAt() == null){
-                this.albums.add(new ArtistToAlbumResponseDto(artistAlbum));
+            AlbumPureResponseDto responseDto = new AlbumPureResponseDto(artistAlbum.getAlbum());
+            if (responseDto.getDeletedAt() == null){
+                this.albums.add(responseDto);
             }
         }
 
