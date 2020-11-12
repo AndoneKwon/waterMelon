@@ -4,6 +4,8 @@ import com.watermelon.domain.album.Album;
 import com.watermelon.domain.album.AlbumRepository;
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist.ArtistRepository;
+import com.watermelon.domain.music.Music;
+import com.watermelon.domain.music.MusicRepository;
 import com.watermelon.dto.artist.ArtistReadResponseDto;
 import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class ArtistService {
 
     private final ArtistRepository artistRepository;
     private final AlbumRepository albumRepository;
+    private final MusicRepository musicRepository;
     private List<ArtistReadResponseDto> responseDtos;
 
     // 아티스트 개별 조회
@@ -60,16 +63,20 @@ public class ArtistService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
         List<Album> albums = new ArrayList<>();
         Artist group = new Artist();
+        List<Music> musics = new ArrayList<>();
 
-        if (requestDto.getAlbum_id_list() != null) {
-            albums = albumRepository.findAllById(requestDto.getAlbum_id_list());
+        if (requestDto.getAlbumIdList() != null) {
+            albums = albumRepository.findAllById(requestDto.getAlbumIdList());
         }
-        if (requestDto.getArtist_id() != null) {
-            group = artistRepository.findById(requestDto.getArtist_id())
+        if (requestDto.getArtistId() != null) {
+            group = artistRepository.findById(requestDto.getArtistId())
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
         }
+        if (requestDto.getMusicIdList() != null) {
+            musics = musicRepository.findAllById(requestDto.getMusicIdList());
+        }
 
-        artist.update(requestDto, albums, group);
+        artist.update(requestDto, albums, group, musics);
 
         return new ArtistReadResponseDto(artist);
     }

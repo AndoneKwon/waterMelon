@@ -2,7 +2,9 @@ package com.watermelon.dto.artist;
 
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist_album.ArtistAlbum;
+import com.watermelon.domain.artist_music.ArtistMusic;
 import com.watermelon.dto.album.AlbumPureResponseDto;
+import com.watermelon.dto.music.MusicPureResponseDto;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class ArtistReadResponseDto {
 
     // 앨범 정보만을 추출하기 위한 Dto
     private List<AlbumPureResponseDto> albums;
+    private List<MusicPureResponseDto> musics;
 
     private List<ArtistPureResponseDto> members;
     private ArtistPureResponseDto group;
@@ -59,7 +62,7 @@ public class ArtistReadResponseDto {
             this.group = new ArtistPureResponseDto(entity.getGroup());
         }
 
-        // 여러 앨범 리스트를 순회하면서 앨범 정보를 필터링합니다
+        // 연결된 앨범 정보를 필터링해서 넣어줍니다.
         this.albums = new ArrayList<>();
         for (ArtistAlbum artistAlbum : entity.getArtistAlbums()) {
             AlbumPureResponseDto responseDto = new AlbumPureResponseDto(artistAlbum.getAlbum());
@@ -68,6 +71,16 @@ public class ArtistReadResponseDto {
             }
         }
 
+        // 연결된 음악 정보를 필터링해서 넣어줍니다.
+        this.musics = new ArrayList<>();
+        for (ArtistMusic artistMusic : entity.getArtistMusics()) {
+            MusicPureResponseDto responseDto = new MusicPureResponseDto(artistMusic.getMusic());
+            if (responseDto.getDeletedAt() == null){
+                this.musics.add(responseDto);
+            }
+        }
+
+        // 연결된 멤버 정보를 필터링해서 넣어줍니다.
         this.members = new ArrayList<>();
         for (Artist member : entity.getMembers()) {
             ArtistPureResponseDto responseDto = new ArtistPureResponseDto(member);

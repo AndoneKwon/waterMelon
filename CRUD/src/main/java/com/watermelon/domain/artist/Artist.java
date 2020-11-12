@@ -4,6 +4,7 @@ import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.album.Album;
 import com.watermelon.domain.artist_album.ArtistAlbum;
 import com.watermelon.domain.artist_music.ArtistMusic;
+import com.watermelon.domain.music.Music;
 import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -112,7 +113,7 @@ public class Artist extends BaseTimeEntity {
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
      * 필드만 수정 처리
      */
-    public void update(ArtistUpdateRequestDto requestDto, List<Album> albums, Artist group) {
+    public void update(ArtistUpdateRequestDto requestDto, List<Album> albums, Artist group, List<Music> musics) {
         if (requestDto.getName() != null) {
             this.name = requestDto.getName();
         }
@@ -153,7 +154,7 @@ public class Artist extends BaseTimeEntity {
             this.debut = requestDto.getDebut();
         }
         // 앨범 관계를 리셋하고 다시 매핑합니다
-        if (requestDto.getAlbum_id_list() != null) {
+        if (requestDto.getAlbumIdList() != null) {
             this.artistAlbums.clear();
             for (Album album : albums) {
                 ArtistAlbum artistAlbum = ArtistAlbum.builder()
@@ -162,8 +163,18 @@ public class Artist extends BaseTimeEntity {
                 this.artistAlbums.add(artistAlbum);
             }
         }
+        // 음악 관계를 리셋하고 다시 매핑합니다
+        if (requestDto.getMusicIdList() != null) {
+            this.artistMusics.clear();
+            for (Music music : musics) {
+                ArtistMusic artistMusic = ArtistMusic.builder()
+                        .music(music)
+                        .build();
+                this.artistMusics.add(artistMusic);
+            }
+        }
         // 아티스트는 자신의 아티스트 그룹을 설정할 수 있습니다
-        if (requestDto.getArtist_id() != null) {
+        if (requestDto.getArtistId() != null) {
             this.group = group;
         }
     }

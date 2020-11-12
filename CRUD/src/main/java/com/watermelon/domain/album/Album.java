@@ -3,6 +3,7 @@ package com.watermelon.domain.album;
 import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist_album.ArtistAlbum;
+import com.watermelon.domain.music.Music;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,9 +48,12 @@ public class Album extends BaseTimeEntity {
     @OneToMany(mappedBy = "album")
     private List<ArtistAlbum> artistAlbums;
 
+    @OneToMany(mappedBy = "album")
+    private List<Music> musics;
+
     @Builder
     public Album(String title, String type, Date publishDate,
-                 String publisher, String agency, String information, Date deletedAt) {
+                 String publisher, String agency, String information, Date deletedAt, List<Music> musics) {
         this.title = title;
         this.type = type;
         this.publishDate = publishDate;
@@ -57,6 +61,7 @@ public class Album extends BaseTimeEntity {
         this.agency = agency;
         this.information = information;
         this.deletedAt = deletedAt;
+        this.musics = musics;
     }
 
     // 관계 연결
@@ -75,7 +80,7 @@ public class Album extends BaseTimeEntity {
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
      * 필드만 수정 처리
      */
-    public void update(AlbumUpdateRequestDto requestDto, List<Artist> artists) {
+    public void update(AlbumUpdateRequestDto requestDto, List<Artist> artists, List<Music> musics) {
         if (requestDto.getTitle() != null) {
             this.title = requestDto.getTitle();
         }
@@ -94,13 +99,19 @@ public class Album extends BaseTimeEntity {
         if (requestDto.getInformation() != null) {
             this.information = requestDto.getInformation();
         }
-        if (requestDto.getArtist_id_list() != null) {
+        if (requestDto.getArtistIdList() != null) {
             this.artistAlbums.clear();
             for (Artist artist : artists) {
                 ArtistAlbum artistAlbum = ArtistAlbum.builder()
                         .artist(artist)
                         .build();
                 this.artistAlbums.add(artistAlbum);
+            }
+        }
+        if (requestDto.getMusicIdList() != null) {
+            this.musics.clear();
+            for (Music music : musics) {
+                this.musics.add(music);
             }
         }
     }

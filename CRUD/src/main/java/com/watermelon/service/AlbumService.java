@@ -4,6 +4,8 @@ import com.watermelon.domain.album.Album;
 import com.watermelon.domain.album.AlbumRepository;
 import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist.ArtistRepository;
+import com.watermelon.domain.music.Music;
+import com.watermelon.domain.music.MusicRepository;
 import com.watermelon.dto.album.AlbumReadResponseDto;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
     private final ArtistRepository artistRepository;
+    private final MusicRepository musicRepository;
     private List<AlbumReadResponseDto> responseDtos;
 
     // 앨범 개별 조회
@@ -50,12 +53,16 @@ public class AlbumService {
                 .orElseThrow(() -> new IllegalArgumentException("수정할 앨범이 존재하지 않습니다."));
 
         List<Artist> artists = new ArrayList<>();
+        List<Music> musics = new ArrayList<>();
 
-        if (requestDto.getArtist_id_list() != null) {
-            artists = artistRepository.findAllById(requestDto.getArtist_id_list());
+        if (requestDto.getArtistIdList() != null) {
+            artists = artistRepository.findAllById(requestDto.getArtistIdList());
+        }
+        if (requestDto.getMusicIdList() != null) {
+            musics = musicRepository.findAllById(requestDto.getMusicIdList());
         }
 
-        album.update(requestDto, artists);
+        album.update(requestDto, artists, musics);
 
         return new AlbumReadResponseDto(album);
     }

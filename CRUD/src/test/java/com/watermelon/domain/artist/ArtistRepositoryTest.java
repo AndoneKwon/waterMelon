@@ -4,6 +4,10 @@ import com.watermelon.domain.album.Album;
 import com.watermelon.domain.album.AlbumRepository;
 import com.watermelon.domain.artist_album.ArtistAlbum;
 import com.watermelon.domain.artist_album.ArtistAlbumRepository;
+import com.watermelon.domain.artist_music.ArtistMusic;
+import com.watermelon.domain.artist_music.ArtistMusicRepository;
+import com.watermelon.domain.music.Music;
+import com.watermelon.domain.music.MusicRepository;
 import com.watermelon.dto.artist.ArtistUpdateRequestDto;
 import org.junit.After;
 import org.junit.Before;
@@ -40,9 +44,17 @@ public class ArtistRepositoryTest {
     @Autowired
     private ArtistAlbumRepository artistAlbumRepository;
 
+    @Autowired
+    private MusicRepository musicRepository;
+
+    @Autowired
+    private ArtistMusicRepository artistMusicRepository;
+
     @After
     public void cleanup() {
         artistAlbumRepository.deleteAll();
+        artistMusicRepository.deleteAll();
+        musicRepository.deleteAll();
         artistRepository.deleteAll();
         albumRepository.deleteAll();
     }
@@ -66,6 +78,7 @@ public class ArtistRepositoryTest {
         // 아티스트와 앨범 객체를 생성하고 매핑합니다
         Artist artist = artistRepository.save(Artist.builder()
                 .name("artist")
+                .isGroup(true)
                 .build()
         );
         artistRepository.save(Artist.builder()
@@ -80,6 +93,17 @@ public class ArtistRepositoryTest {
         artistAlbumRepository.save(ArtistAlbum.builder()
                 .artist(artist)
                 .album(album)
+                .build()
+        );
+        Music music = musicRepository.save(Music.builder()
+                .title("music")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist)
+                .music(music)
                 .build()
         );
 
@@ -124,6 +148,39 @@ public class ArtistRepositoryTest {
                 .album(album2)
                 .build()
         );
+        Music music1 = musicRepository.save(Music.builder()
+                .title("music1")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        Music music2 = musicRepository.save(Music.builder()
+                .title("music2")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        Music music3 = musicRepository.save(Music.builder()
+                .title("music3")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist1)
+                .music(music1)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist1)
+                .music(music2)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist2)
+                .music(music3)
+                .build()
+        );
 
         String url = "http://localhost:" + port + "/v1/artists";
 
@@ -165,6 +222,39 @@ public class ArtistRepositoryTest {
                 .album(album2)
                 .build()
         );
+        Music music1 = musicRepository.save(Music.builder()
+                .title("music1")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        Music music2 = musicRepository.save(Music.builder()
+                .title("music2")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        Music music3 = musicRepository.save(Music.builder()
+                .title("music3")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist1)
+                .music(music1)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist1)
+                .music(music2)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist2)
+                .music(music3)
+                .build()
+        );
 
         String keyword = "t1";
         String url = "http://localhost:" + port + "/v1/artists?keyword=" + keyword;
@@ -175,8 +265,6 @@ public class ArtistRepositoryTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println(responseEntity.getBody());
-        artistAlbumRepository.deleteAll();
-        albumRepository.deleteAll();
     }
 
     @Test
@@ -209,17 +297,39 @@ public class ArtistRepositoryTest {
                 .title("title2")
                 .build()
         );
+        Music music1 = musicRepository.save(Music.builder()
+                .title("music1")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        Music music2 = musicRepository.save(Music.builder()
+                .title("music2")
+                .composer("composer")
+                .songwriter("songwriter")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist)
+                .music(music1)
+                .build()
+        );
 
         Long id = artist.getId();
+
         List<Long> album_ids = new ArrayList<>();
         album_ids.add(album2.getId());
+
+        List<Long> musicIdList = new ArrayList<>();
+        musicIdList.add(music2.getId());
 
         String expectedName = "updated name";
 
         ArtistUpdateRequestDto requestDto = ArtistUpdateRequestDto.builder()
                 .name("updated name")
-                .album_id_list(album_ids)
-                .artist_id(group2.getId())
+                .albumIdList(album_ids)
+                .artistId(group2.getId())
+                .musicIdList(musicIdList)
                 .build();
 
         HttpEntity<ArtistUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
@@ -235,8 +345,6 @@ public class ArtistRepositoryTest {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
         assertThat(updatedArtist.getName()).isEqualTo(expectedName);
         System.out.println(responseEntity.getBody());
-        artistAlbumRepository.deleteAll();
-        albumRepository.deleteAll();
     }
 
     @Test
