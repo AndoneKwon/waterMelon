@@ -2,7 +2,9 @@ package com.watermelon.domain.music;
 
 import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.album.Album;
+import com.watermelon.domain.artist.Artist;
 import com.watermelon.domain.artist_music.ArtistMusic;
+import com.watermelon.dto.music.MusicUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -85,29 +87,66 @@ public class Music extends BaseTimeEntity {
         this.album = album;
     }
 
-//    /**
-//     * 수정 기능
-//     * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
-//     * 필드만 수정 처리
-//     */
-//    public void update(ArtistUpdateRequestDto requestDto, List<Album> albums, Artist group) {
-//        if (requestDto.getName() != null) {
-//            this.name = requestDto.getName();
-//        }
-//        // 앨범 관계를 리셋하고 다시 매핑합니다
-//        if (requestDto.getAlbum_id_list() != null) {
-//            this.artistAlbums.clear();
-//            for (Album album : albums) {
-//                ArtistAlbum artistAlbum = ArtistAlbum.builder()
-//                        .album(album)
-//                        .build();
-//                this.artistAlbums.add(artistAlbum);
-//            }
-//        }
-//    }
-//
-//    // 삭제 기능
-//    public void delete(Date now) {
-//        this.deletedAt = now;
-//    }
+    /**
+     * 수정 기능
+     * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
+     * 필드만 수정 처리
+     */
+    public void update(MusicUpdateRequestDto requestDto, List<Artist> artists, Album album) {
+        if (requestDto.getTitle() != null) {
+            this.title = requestDto.getTitle();
+        }
+        if (requestDto.getLyrics() != null) {
+            this.lyrics = requestDto.getLyrics();
+        }
+        if (requestDto.getComposer() != null) {
+            this.composer = requestDto.getComposer();
+        }
+        if (requestDto.getSongwriter() != null) {
+            this.songwriter = requestDto.getSongwriter();
+        }
+        if (requestDto.getArranger() != null) {
+            this.arranger = requestDto.getArranger();
+        }
+        if (requestDto.getLikes() != null) {
+            this.likes = requestDto.getLikes();
+        }
+        if (requestDto.getHits() != null) {
+            this.hits = requestDto.getHits();
+        }
+        if (requestDto.getReleaseDate() != null) {
+            this.releaseDate = requestDto.getReleaseDate();
+        }
+        if (requestDto.getDeletedAt() != null) {
+            this.deletedAt = requestDto.getDeletedAt();
+        }
+        if (requestDto.getIsTitle() != null) {
+            this.isTitle = requestDto.getIsTitle();
+        }
+        if (requestDto.getThumbnail() != null) {
+            this.thumbnail = requestDto.getThumbnail();
+        }
+        if (requestDto.getGenre() != null) {
+            this.genre = requestDto.getGenre();
+        }
+        if (requestDto.getAlbumId() != null) {
+            this.album = album;
+        }
+
+        // 아티스트 관계를 리셋하고 다시 매핑합니다
+        if (requestDto.getArtistIdList() != null) {
+            this.artistMusics.clear();
+            for (Artist artist : artists) {
+                ArtistMusic artistMusic = ArtistMusic.builder()
+                        .artist(artist)
+                        .build();
+                this.artistMusics.add(artistMusic);
+            }
+        }
+    }
+
+    // 삭제 기능
+    public void delete(Date now) {
+        this.deletedAt = now;
+    }
 }

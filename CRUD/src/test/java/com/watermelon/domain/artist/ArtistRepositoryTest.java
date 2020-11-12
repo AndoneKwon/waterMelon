@@ -224,7 +224,6 @@ public class ArtistRepositoryTest {
 
         HttpEntity<ArtistUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
         String url = "http://localhost:" + port + "/v1/artists/" + id;
-        System.out.println(artist.toString());
 
         // when
         ResponseEntity<Object> responseEntity = restTemplate

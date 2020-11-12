@@ -1,12 +1,11 @@
 package com.watermelon.controller;
 
+import com.watermelon.domain.music.Music;
 import com.watermelon.dto.music.MusicReadResponseDto;
+import com.watermelon.dto.music.MusicUpdateRequestDto;
 import com.watermelon.service.MusicService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +25,17 @@ public class MusicController {
     @GetMapping("/v1/musics")
     public List<MusicReadResponseDto> list(@RequestParam(value = "keyword", required = false) String keyword ) {
         return musicService.list(keyword);
+    }
+
+    // 음악 수정
+    @PatchMapping("/v1/musics/{id}")
+    public MusicReadResponseDto update(@PathVariable Long id, @RequestBody MusicUpdateRequestDto requestDto) {
+        return musicService.update(id, requestDto);
+    }
+
+    // 음악 삭제
+    @DeleteMapping("/v1/musics/{id}")
+    public String delete(@PathVariable Long id) {
+        return musicService.delete(id);
     }
 }
