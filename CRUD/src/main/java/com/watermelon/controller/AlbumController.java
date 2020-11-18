@@ -38,13 +38,13 @@ public class AlbumController {
 
     // 앨범 - 아티스트 관계 추가
     @PatchMapping("/v1/albums/artist-add/{id}")
-    public AlbumReadResponseDto updateRelationAritstAdd(@PathVariable Long id, @RequestBody AlbumUpdateRelationRequestDto requestDto) {
+    public AlbumReadResponseDto updateRelationArtistAdd(@PathVariable Long id, @RequestBody AlbumUpdateRelationRequestDto requestDto) {
         return albumService.updateRelationArtistAdd(id, requestDto);
     }
 
     // 앨범 - 아티스트 관계 삭제
     @PatchMapping("/v1/albums/artist-delete/{id}")
-    public AlbumReadResponseDto updateRelationAritstDelete(@PathVariable Long id, @RequestBody AlbumUpdateRelationRequestDto requestDto) {
+    public AlbumReadResponseDto updateRelationArtistDelete(@PathVariable Long id, @RequestBody AlbumUpdateRelationRequestDto requestDto) {
         return albumService.updateRelationArtistDelete(id, requestDto);
     }
 
