@@ -42,6 +42,9 @@ public class AlbumReadResponseDto {
         // 연결된 아티스트 정보를 필터링해서 넣어줍니다.
         this.artists = new ArrayList<>();
         for (ArtistAlbum artistAlbum : entity.getArtistAlbums()) {
+            if (artistAlbum.getDeletedAt() != null) {
+                continue;
+            }
             ArtistPureResponseDto responseDto = new ArtistPureResponseDto(artistAlbum.getArtist());
             if (responseDto.getDeletedAt() == null) {
                 this.artists.add(responseDto);

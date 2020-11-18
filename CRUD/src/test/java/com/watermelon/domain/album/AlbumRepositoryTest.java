@@ -6,7 +6,9 @@ import com.watermelon.domain.artist_album.ArtistAlbum;
 import com.watermelon.domain.artist_album.ArtistAlbumRepository;
 import com.watermelon.domain.music.Music;
 import com.watermelon.domain.music.MusicRepository;
+import com.watermelon.dto.album.AlbumUpdateRelationRequestDto;
 import com.watermelon.dto.album.AlbumUpdateRequestDto;
+import com.watermelon.dto.artist.ArtistUpdateRelationRequestDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,13 +45,13 @@ public class AlbumRepositoryTest {
     @Autowired
     private MusicRepository musicRepository;
 
-    @After
-    public void cleanup() {
-        artistAlbumRepository.deleteAll();
-        musicRepository.deleteAll();
-        artistRepository.deleteAll();
-        albumRepository.deleteAll();
-    }
+//    @After
+//    public void cleanup() {
+//        artistAlbumRepository.deleteAll();
+//        musicRepository.deleteAll();
+//        artistRepository.deleteAll();
+//        albumRepository.deleteAll();
+//    }
 
     @LocalServerPort
     private int port;
@@ -176,46 +178,12 @@ public class AlbumRepositoryTest {
                 .information("first album")
                 .build()
         );
-        Artist artist1 = artistRepository.save(Artist.builder()
-                .name("artist1")
-                .build()
-        );
-        artistAlbumRepository.save(ArtistAlbum.builder()
-                .album(album)
-                .artist(artist1)
-                .build()
-        );
-        Artist artist2 = artistRepository.save(Artist.builder()
-                .name("artist2")
-                .build()
-        );
-        musicRepository.save(Music.builder()
-                .title("music1")
-                .composer("composer")
-                .songwriter("writer")
-                .album(album)
-                .build()
-        );
-        Music music = musicRepository.save(Music.builder()
-                .title("music2")
-                .composer("composer")
-                .songwriter("writer")
-                .build()
-        );
 
         Long updatedId = album.getId();
         String expectedTitle = "title update";
 
-        List<Long> artist_ids = new ArrayList<>();
-        artist_ids.add(artist2.getId());
-
-        List<Long> musicIdList = new ArrayList<>();
-        musicIdList.add(music.getId());
-
         AlbumUpdateRequestDto requestDto = AlbumUpdateRequestDto.builder()
                 .title(expectedTitle)
-                .artistIdList(artist_ids)
-                .musicIdList(musicIdList)
                 .build();
 
         HttpEntity<AlbumUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
@@ -233,6 +201,105 @@ public class AlbumRepositoryTest {
         Album savedAlbum = albumRepository.findById(updatedId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 앨범"));
         assertThat(savedAlbum.getTitle()).isEqualTo(expectedTitle);
+    }
+
+    @Test
+    public void albumUpdateRelationArtistAdd() {
+
+        // given
+        Album album = albumRepository.save(Album.builder()
+                .title("album")
+                .build()
+        );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album)
+                .artist(artist1)
+                .build()
+        );
+
+        /**
+         * 원래 연결된 아티스트 리스트 : [artist1]
+         * artist2를 새로 연결하는 과정
+         */
+
+        Long id = album.getId();
+        List<Long> artistIdList = new ArrayList<>();
+        artistIdList.add(artist2.getId());
+
+        AlbumUpdateRelationRequestDto requestDto = AlbumUpdateRelationRequestDto.builder()
+                .artistIdList(artistIdList)
+                .build();
+
+        HttpEntity<AlbumUpdateRelationRequestDto> requestEntity = new HttpEntity<>(requestDto);
+        String url = "http://localhost:" + port + "/v1/albums/artist-add/" + id;
+
+        // when
+        ResponseEntity<Object> responseEntity = restTemplate
+                .exchange(url, HttpMethod.PATCH, requestEntity, Object.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(responseEntity.getBody());
+    }
+
+    @Test
+    public void albumUpdateRelationArtistDelete() {
+
+        // given
+        Album album = albumRepository.save(Album.builder()
+                .title("album")
+                .build()
+        );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album)
+                .artist(artist1)
+                .build()
+        );
+        artistAlbumRepository.save(ArtistAlbum.builder()
+                .album(album)
+                .artist(artist2)
+                .build()
+        );
+
+        /**
+         * 원래 연결된 아티스트 리스트 : [artist1, artist2]
+         * artist2를 연결 해제하는 과정
+         */
+
+        Long id = album.getId();
+        List<Long> artistIdList = new ArrayList<>();
+        artistIdList.add(artist2.getId());
+
+        AlbumUpdateRelationRequestDto requestDto = AlbumUpdateRelationRequestDto.builder()
+                .artistIdList(artistIdList)
+                .build();
+
+        HttpEntity<AlbumUpdateRelationRequestDto> requestEntity = new HttpEntity<>(requestDto);
+        String url = "http://localhost:" + port + "/v1/albums/artist-delete/" + id;
+
+        // when
+        ResponseEntity<Object> responseEntity = restTemplate
+                .exchange(url, HttpMethod.PATCH, requestEntity, Object.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(responseEntity.getBody());
     }
 
     @Test

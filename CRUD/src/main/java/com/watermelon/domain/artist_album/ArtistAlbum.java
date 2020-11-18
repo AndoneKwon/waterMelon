@@ -40,6 +40,10 @@ public class ArtistAlbum extends BaseTimeEntity {
         this.deletedAt = deletedAt;
     }
 
+    public void delete(Date now) {
+        this.deletedAt = now;
+    }
+
     public void setArtist(Artist artist) {
         if (this.artist != null) {
             this.artist.removeRelation(this);

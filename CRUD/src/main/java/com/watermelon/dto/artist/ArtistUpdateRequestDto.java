@@ -23,14 +23,12 @@ public class ArtistUpdateRequestDto {
     private Boolean isConcoction;
     private Date debut;
 
-    private List<Long> albumIdList;
     private Long artistId;
-    private List<Long> musicIdList;
 
     @Builder
     public ArtistUpdateRequestDto(String name, String information, String fanClub, String activity, String genre,
                   String nationality, String agency, Boolean isConcoction, String gender, String type, String debutMusic,
-                  Boolean isGroup, Date debut, List<Long> albumIdList, Long artistId, List<Long> musicIdList) {
+                  Boolean isGroup, Date debut, Long artistId) {
         this.name = name;
         this.information = information;
         this.fanClub = fanClub;
@@ -44,8 +42,6 @@ public class ArtistUpdateRequestDto {
         this.type = type;
         this.debutMusic = debutMusic;
         this.debut = debut;
-        this.albumIdList = albumIdList;
         this.artistId = artistId;
-        this.musicIdList = musicIdList;
     }
 }

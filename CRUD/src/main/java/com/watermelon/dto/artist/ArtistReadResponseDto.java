@@ -65,6 +65,9 @@ public class ArtistReadResponseDto {
         // 연결된 앨범 정보를 필터링해서 넣어줍니다.
         this.albums = new ArrayList<>();
         for (ArtistAlbum artistAlbum : entity.getArtistAlbums()) {
+            if (artistAlbum.getDeletedAt() != null) {
+                continue;
+            }
             AlbumPureResponseDto responseDto = new AlbumPureResponseDto(artistAlbum.getAlbum());
             if (responseDto.getDeletedAt() == null){
                 this.albums.add(responseDto);
@@ -74,6 +77,9 @@ public class ArtistReadResponseDto {
         // 연결된 음악 정보를 필터링해서 넣어줍니다.
         this.musics = new ArrayList<>();
         for (ArtistMusic artistMusic : entity.getArtistMusics()) {
+            if (artistMusic.getDeletedAt() != null) {
+                continue;
+            }
             MusicPureResponseDto responseDto = new MusicPureResponseDto(artistMusic.getMusic());
             if (responseDto.getDeletedAt() == null){
                 this.musics.add(responseDto);

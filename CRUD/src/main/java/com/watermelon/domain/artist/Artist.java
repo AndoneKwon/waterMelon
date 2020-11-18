@@ -113,7 +113,7 @@ public class Artist extends BaseTimeEntity {
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
      * 필드만 수정 처리
      */
-    public void update(ArtistUpdateRequestDto requestDto, List<Album> albums, Artist group, List<Music> musics) {
+    public void update(ArtistUpdateRequestDto requestDto, Artist group) {
         if (requestDto.getName() != null) {
             this.name = requestDto.getName();
         }
@@ -153,33 +153,17 @@ public class Artist extends BaseTimeEntity {
         if (requestDto.getDebut() != null) {
             this.debut = requestDto.getDebut();
         }
-        // 앨범 관계를 리셋하고 다시 매핑합니다
-        if (requestDto.getAlbumIdList() != null) {
-            this.artistAlbums.clear();
-            for (Album album : albums) {
-                ArtistAlbum artistAlbum = ArtistAlbum.builder()
-                        .album(album)
-                        .build();
-                this.artistAlbums.add(artistAlbum);
-            }
-        }
-        // 음악 관계를 리셋하고 다시 매핑합니다
-        if (requestDto.getMusicIdList() != null) {
-            this.artistMusics.clear();
-            for (Music music : musics) {
-                ArtistMusic artistMusic = ArtistMusic.builder()
-                        .music(music)
-                        .build();
-                this.artistMusics.add(artistMusic);
-            }
-        }
         // 아티스트는 자신의 아티스트 그룹을 설정할 수 있습니다
         if (requestDto.getArtistId() != null) {
             this.group = group;
         }
     }
 
-    // 삭제 기능
+    /**
+     * 현재 시간을 Date 객체로 받아 와서 deleted_at 필드에 반영합니다.
+     * deleted_at 필드를 확인해서 해당 레코드가 삭제된 레코드인지 분별합니다.
+     * @param now
+     */
     public void delete(Date now) {
         this.deletedAt = now;
     }

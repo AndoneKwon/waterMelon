@@ -44,11 +44,17 @@ public class MusicReadResponseDto {
         this.isTitle = entity.getIsTitle();
         this.thumbnail = entity.getThumbnail();
         this.genre = entity.getGenre();
-        this.album = new AlbumPureResponseDto(entity.getAlbum());
+
+        if (entity.getAlbum() != null && entity.getAlbum().getDeletedAt() == null) {
+            this.album = new AlbumPureResponseDto(entity.getAlbum());
+        }
 
         // 연결된 아티스트 정보를 필터링해서 넣어줍니다.
         this.artists = new ArrayList<>();
         for (ArtistMusic artistMusic : entity.getArtistMusics()) {
+            if (artistMusic.getDeletedAt() != null) {
+                continue;
+            }
             ArtistPureResponseDto responseDto = new ArtistPureResponseDto(artistMusic.getArtist());
             if (responseDto.getDeletedAt() == null) {
                 this.artists.add(responseDto);

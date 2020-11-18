@@ -7,6 +7,7 @@ import com.watermelon.domain.artist.ArtistRepository;
 import com.watermelon.domain.artist_album.ArtistAlbumRepository;
 import com.watermelon.domain.artist_music.ArtistMusic;
 import com.watermelon.domain.artist_music.ArtistMusicRepository;
+import com.watermelon.dto.music.MusicUpdateRelationRequestDto;
 import com.watermelon.dto.music.MusicUpdateRequestDto;
 import org.junit.After;
 import org.junit.Before;
@@ -267,21 +268,118 @@ public class MusicRepositoryTest {
         );
 
         Long id = music.getId();
-        List<Long> artistIdList = new ArrayList<>();
-        artistIdList.add(artist2.getId());
-        artistIdList.add(artist3.getId());
 
         MusicUpdateRequestDto requestDto = MusicUpdateRequestDto.builder()
                 .title("새로운 제목")
                 .composer("새로운 composer")
                 .songwriter("새로운 writer")
                 .albumId(album2.getId())
-                .artistIdList(artistIdList)
                 .build();
 
         HttpEntity<MusicUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
         String url = "http://localhost:" + port + "/v1/musics/" + id;
 
+
+        // when
+        ResponseEntity<Object> responseEntity = restTemplate
+                .exchange(url, HttpMethod.PATCH, requestEntity, Object.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(responseEntity.getBody());
+    }
+
+    @Test
+    public void music_update_relation_add() {
+
+        // given
+        Music music = musicRepository.save(Music.builder()
+                .title("music")
+                .composer("composer")
+                .songwriter("writer")
+                .build()
+        );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist1)
+                .music(music)
+                .build()
+        );
+        /**
+         * 원래 연결된 아티스트 리스트 : [artist1]
+         * artist2를 새로 연결하는 과정
+         */
+
+        Long id = music.getId();
+        List<Long> artistIdList = new ArrayList<>();
+        artistIdList.add(artist2.getId());
+
+        MusicUpdateRelationRequestDto requestDto = MusicUpdateRelationRequestDto.builder()
+                .artistIdList(artistIdList)
+                .build();
+
+        HttpEntity<MusicUpdateRelationRequestDto> requestEntity = new HttpEntity<>(requestDto);
+        String url = "http://localhost:" + port + "/v1/musics/artist-add/" + id;
+
+        // when
+        ResponseEntity<Object> responseEntity = restTemplate
+                .exchange(url, HttpMethod.PATCH, requestEntity, Object.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(responseEntity.getBody());
+    }
+
+    @Test
+    public void music_update_relation_delete() {
+
+        // given
+        Music music = musicRepository.save(Music.builder()
+                .title("music")
+                .composer("composer")
+                .songwriter("writer")
+                .build()
+        );
+        Artist artist1 = artistRepository.save(Artist.builder()
+                .name("artist1")
+                .build()
+        );
+        Artist artist2 = artistRepository.save(Artist.builder()
+                .name("artist2")
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist1)
+                .music(music)
+                .build()
+        );
+        artistMusicRepository.save(ArtistMusic.builder()
+                .artist(artist2)
+                .music(music)
+                .build()
+        );
+        /**
+         * 원래 연결된 아티스트 리스트 : [artist1, artist2]
+         * artist2를 연결 해제하는 과정
+         */
+
+        Long id = music.getId();
+        List<Long> artistIdList = new ArrayList<>();
+        artistIdList.add(artist2.getId());
+
+        MusicUpdateRelationRequestDto requestDto = MusicUpdateRelationRequestDto.builder()
+                .artistIdList(artistIdList)
+                .build();
+
+        HttpEntity<MusicUpdateRelationRequestDto> requestEntity = new HttpEntity<>(requestDto);
+        String url = "http://localhost:" + port + "/v1/musics/artist-delete/" + id;
 
         // when
         ResponseEntity<Object> responseEntity = restTemplate

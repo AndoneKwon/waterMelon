@@ -2,6 +2,7 @@ package com.watermelon.controller;
 
 import com.watermelon.domain.music.Music;
 import com.watermelon.dto.music.MusicReadResponseDto;
+import com.watermelon.dto.music.MusicUpdateRelationRequestDto;
 import com.watermelon.dto.music.MusicUpdateRequestDto;
 import com.watermelon.service.MusicService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,18 @@ public class MusicController {
     @PatchMapping("/v1/musics/{id}")
     public MusicReadResponseDto update(@PathVariable Long id, @RequestBody MusicUpdateRequestDto requestDto) {
         return musicService.update(id, requestDto);
+    }
+
+    // 음악 - 아티스트 관계 추가
+    @PatchMapping("/v1/musics/artist-add/{id}")
+    public MusicReadResponseDto updateRelationAdd(@PathVariable Long id, @RequestBody MusicUpdateRelationRequestDto requestDto) {
+        return musicService.updateRelationAdd(id, requestDto);
+    }
+
+    // 음악 - 아티스트 관계 삭제
+    @PatchMapping("/v1/musics/artist-delete/{id}")
+    public MusicReadResponseDto updateRelationDelete(@PathVariable Long id, @RequestBody MusicUpdateRelationRequestDto requestDto) {
+        return musicService.updateRelationDelete(id, requestDto);
     }
 
     // 음악 삭제

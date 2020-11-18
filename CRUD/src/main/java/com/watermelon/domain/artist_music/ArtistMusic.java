@@ -37,4 +37,8 @@ public class ArtistMusic extends BaseTimeEntity {
         this.music = music;
         this.deletedAt = deletedAt;
     }
+
+    public void delete(Date now) {
+        this.deletedAt = now;
+    }
 }

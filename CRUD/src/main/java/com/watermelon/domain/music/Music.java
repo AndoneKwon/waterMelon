@@ -3,6 +3,7 @@ package com.watermelon.domain.music;
 import com.watermelon.domain.BaseTimeEntity;
 import com.watermelon.domain.album.Album;
 import com.watermelon.domain.artist.Artist;
+import com.watermelon.domain.artist_album.ArtistAlbum;
 import com.watermelon.domain.artist_music.ArtistMusic;
 import com.watermelon.dto.music.MusicUpdateRequestDto;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,12 +89,23 @@ public class Music extends BaseTimeEntity {
         this.album = album;
     }
 
+    // 관계 연결
+    public void addRelation(ArtistMusic artistMusic) {
+        this.artistMusics = new ArrayList<>();
+        this.artistMusics.add(artistMusic);
+    }
+    // 관계 해제
+    public void removeRelation(ArtistMusic artistMusic) {
+        this.artistMusics = new ArrayList<>();
+        this.artistMusics.remove(artistMusic);
+    }
+
     /**
      * 수정 기능
      * patch를 구현하기 위해 널 값을 체크하고 수정할 값이 들어있는
      * 필드만 수정 처리
      */
-    public void update(MusicUpdateRequestDto requestDto, List<Artist> artists, Album album) {
+    public void update(MusicUpdateRequestDto requestDto, Album album) {
         if (requestDto.getTitle() != null) {
             this.title = requestDto.getTitle();
         }
@@ -132,20 +145,13 @@ public class Music extends BaseTimeEntity {
         if (requestDto.getAlbumId() != null) {
             this.album = album;
         }
-
-        // 아티스트 관계를 리셋하고 다시 매핑합니다
-        if (requestDto.getArtistIdList() != null) {
-            this.artistMusics.clear();
-            for (Artist artist : artists) {
-                ArtistMusic artistMusic = ArtistMusic.builder()
-                        .artist(artist)
-                        .build();
-                this.artistMusics.add(artistMusic);
-            }
-        }
     }
 
-    // 삭제 기능
+    /**
+     * 현재 시간을 Date 객체로 받아 와서 deleted_at 필드에 반영합니다.
+     * deleted_at 필드를 확인해서 해당 레코드가 삭제된 레코드인지 분별합니다.
+     * @param now
+     */
     public void delete(Date now) {
         this.deletedAt = now;
     }
