@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class auth.watermelon.domain.user.UserRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class auth.watermelon.domain.user.UserRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/auth.watermelon.domain.user.html">auth.watermelon.domain.user</a> &gt; UserRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.725s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">UserNoAuthorization</td>
+<td class="success">0.725s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>13:32:41.406 [Test worker] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.422 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+13:32:41.422 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+13:32:41.469 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [auth.watermelon.domain.user.UserRepositoryTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+13:32:41.484 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [auth.watermelon.domain.user.UserRepositoryTest], using SpringBootContextLoader
+13:32:41.484 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [auth.watermelon.domain.user.UserRepositoryTest]: class path resource [auth/watermelon/domain/user/UserRepositoryTest-context.xml] does not exist
+13:32:41.484 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [auth.watermelon.domain.user.UserRepositoryTest]: class path resource [auth/watermelon/domain/user/UserRepositoryTestContext.groovy] does not exist
+13:32:41.484 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [auth.watermelon.domain.user.UserRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+13:32:41.484 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [auth.watermelon.domain.user.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:32:41.547 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.640 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\Users\sigyung\works\waterMelon\AuthWatermelon\build\classes\java\main\auth\watermelon\AuthApplication.class]
+13:32:41.640 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration auth.watermelon.AuthApplication for test class auth.watermelon.domain.user.UserRepositoryTest
+13:32:41.765 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [auth.watermelon.domain.user.UserRepositoryTest]: using defaults.
+13:32:41.765 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+13:32:41.797 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4fce6592, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@24259f45, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2d66f64b, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@65cfeef5, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5991e52b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@51c686eb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4b88e636, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@51aa11f4, org.springframework.test.context.event.EventPublishingTestExecutionListener@7c40e57, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@62d0219a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6e65d2a0, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6fc15b29, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@48505630, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2bef7251, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6bdf555e, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@ea2431f]
+13:32:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.797 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.812 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.812 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.812 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.812 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.812 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@3d70d4ad testClass = UserRepositoryTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4b22cb5e testClass = UserRepositoryTest, locations = '{}', classes = '{class auth.watermelon.AuthApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@f96bc73, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a14c2d4, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@21ff52e0, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@7ef8e84, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]], class annotated with @DirtiesContext [false] with mode [null].
+13:32:41.812 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.812 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [auth.watermelon.domain.user.UserRepositoryTest]
+13:32:41.828 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@3d70d4ad testClass = UserRepositoryTest, testInstance = auth.watermelon.domain.user.UserRepositoryTest@5ed0bec5, testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4b22cb5e testClass = UserRepositoryTest, locations = '{}', classes = '{class auth.watermelon.AuthApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@f96bc73, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a14c2d4, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@21ff52e0, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@7ef8e84, org.springframework.boot.test.context.SpringBootTestArgs@1], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; false]]].
+13:32:41.843 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-11-23 13:32:42.267  INFO 1372 --- [    Test worker] a.w.domain.user.UserRepositoryTest       : Starting UserRepositoryTest on LAPTOP-OVQJ7QLO with PID 1372 (started by sigyung in C:\Users\sigyung\works\waterMelon\AuthWatermelon)
+2020-11-23 13:32:42.267  INFO 1372 --- [    Test worker] a.w.domain.user.UserRepositoryTest       : No active profile set, falling back to default profiles: default
+2020-11-23 13:32:42.962  INFO 1372 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-11-23 13:32:43.055  INFO 1372 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78ms. Found 1 JPA repository interfaces.
+2020-11-23 13:32:43.836  INFO 1372 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2020-11-23 13:32:43.852  INFO 1372 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-11-23 13:32:43.852  INFO 1372 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-11-23 13:32:43.992  INFO 1372 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-11-23 13:32:43.992  INFO 1372 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1694 ms
+2020-11-23 13:32:44.458  INFO 1372 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-23 13:32:44.536  INFO 1372 --- [         task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-23 13:32:44.661  INFO 1372 --- [         task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.18.Final
+2020-11-23 13:32:44.942  INFO 1372 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@557832d3, []
+2020-11-23 13:32:44.973  INFO 1372 --- [         task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-23 13:32:45.082  INFO 1372 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@61f51e85, org.springframework.security.web.context.SecurityContextPersistenceFilter@1590c7fb, org.springframework.security.web.header.HeaderWriterFilter@6913c6fa, org.springframework.security.web.authentication.logout.LogoutFilter@3df3526c, auth.watermelon.auth.JwtAuthenticationFilter@2e9ff90e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6a2bed9c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5cda8a39, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@577d5746, org.springframework.security.web.session.SessionManagementFilter@20ac1ccf, org.springframework.security.web.access.ExceptionTranslationFilter@409a907, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3ad35a7a]
+2020-11-23 13:32:45.176  INFO 1372 --- [         task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-11-23 13:32:45.551  INFO 1372 --- [         task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-11-23 13:32:45.567  INFO 1372 --- [         task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-11-23 13:32:46.519  INFO 1372 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-23 13:32:46.535  INFO 1372 --- [         task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-23 13:32:47.619  INFO 1372 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 50743 (http) with context path ''
+2020-11-23 13:32:47.619  INFO 1372 --- [    Test worker] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-11-23 13:32:48.057  INFO 1372 --- [    Test worker] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-11-23 13:32:48.072  INFO 1372 --- [    Test worker] a.w.domain.user.UserRepositoryTest       : Started UserRepositoryTest in 6.223 seconds (JVM running for 8.212)
+2020-11-23 13:32:48.338  INFO 1372 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-11-23 13:32:48.338  INFO 1372 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-11-23 13:32:48.369  INFO 1372 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 31 ms
+{&quot;timestamp&quot;:&quot;2020-11-23T04:32:48.438+00:00&quot;,&quot;status&quot;:403,&quot;error&quot;:&quot;Forbidden&quot;,&quot;message&quot;:&quot;&quot;,&quot;path&quot;:&quot;/v1/test&quot;}
+Hibernate: select user0_.id as id1_0_, user0_.created_at as created_2_0_, user0_.updated_at as updated_3_0_, user0_.deleted_at as deleted_4_0_, user0_.email as email5_0_, user0_.nickname as nickname6_0_, user0_.password as password7_0_, user0_.profile as profile8_0_, user0_.salt as salt9_0_ from user user0_
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 5.6.4</a> at 2020. 11. 23 오후 1:32:49</p>
+</div>
+</div>
+</body>
+</html>
